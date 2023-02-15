@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+}
+
+group 'org.lab3agfx'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.jdom:jdom2:2.0.6.1'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+mainClassName = 'org.lab3agfx.Main'
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.lab3agfx.Main'
+    }
+
+    from {
+        configurations.compileClasspath.filter{ it.exists() }.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+
+task runWithJavaExec(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
