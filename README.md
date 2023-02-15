@@ -15,7 +15,7 @@ This project was done for the Foundations of Computer Graphics class at the Univ
 ## Output of the XML files
 
 <p align="middle">
-  <img src="https://github.com/arynor96/raytracer-gfx/blob/main/output-tasks/example2.png" width="400" />
+  <img src="https://github.com/arynor96/raytracer-gfx/blob/main/output-tasks/example6textured.png" width="400" />
   <img src="https://github.com/arynor96/raytracer-gfx/blob/main/output-tasks/example3.png" width="400" /> 
   <img src="https://github.com/arynor96/raytracer-gfx/blob/main/output-tasks/example6.png" width="400" />
   <img src="https://github.com/arynor96/raytracer-gfx/blob/main/output-tasks/example5.png" width="400" />
