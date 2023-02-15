@@ -1,6 +1,7 @@
 
 # Java basic Ray Tracer
 This project was done for the Foundations of Computer Graphics class at the University of Vienna.
+It receives as parameter the path to the xml file that has to be rendered.
 
 ## What can it do?
 
