@@ -12,7 +12,6 @@ public class Vec3 {
         this.z = 0.0;
     }
 
-
     public Vec3(Double x, Double y, Double z) {
         this.x = x;
         this.y = y;
@@ -70,15 +69,6 @@ public class Vec3 {
     }
 
 
-    @Override
-    public String toString() {
-        return "Vec3{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
-    }
-
     public Double getX() {
         return x;
     }
@@ -91,16 +81,14 @@ public class Vec3 {
         return z;
     }
 
-    public void setX(Double x) {
-        this.x = x;
+    @Override
+    public String toString() {
+        return "Vec3{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 
-    public void setY(Double y) {
-        this.y = y;
-    }
-
-    public void setZ(Double z) {
-        this.z = z;
-    }
 
 }

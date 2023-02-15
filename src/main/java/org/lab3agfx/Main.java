@@ -12,18 +12,19 @@ public class Main {
     public static void main(String[] args) {
 
 
+        // checks if input path is specified in the arguments.
+        // if not, renders two default scenes.
         if (args.length == 0) {
             System.out.println("Please type a file path as argument.");
             System.out.println("No path found, rendering T1 and T2 tasks instead: ");
 
-            //T1 - this creates a black scene (no objects found)
+            // This creates a black scene, no object or lights present.
             Scene scene = new Scene();
             Renderer renderer = new Renderer();
             renderer.renderT1(scene);
             System.out.println();
 
-            //T2 - this creates a scene with two green circles.
-
+            // This creates a scene with two green circles.
             double[] phong = new double[4];
             phong[0] = 0.8;
             phong[1] = 1.0;

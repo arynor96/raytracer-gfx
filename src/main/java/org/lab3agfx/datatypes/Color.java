@@ -5,30 +5,21 @@ public class Color {
     private double g;
     private double b;
 
-
-
     public Color(double r, double g, double b) {
         this.r = r;
         this.g = g;
         this.b = b;
 
         if (r < 0 || g < 0 || b < 0) {
-
             if (r < 0) this.r = 0;
             if (g < 0) this.g = 0;
             if (b < 0) this.b = 0;
-            // For debugging:
-           // System.out.println("Corrected invalid data in Color constructor (<0)");
         }
 
         if (r > 1 || g > 1 || b > 1) {
-
             if (r > 1) this.r = 1;
             if (g > 1) this.g = 1;
             if (b > 1) this.b = 1;
-             // For debugging:
-            // System.out.println("Corrected invalid data in Color constructor (>1)");
-
         }
     }
 
@@ -57,6 +48,19 @@ public class Color {
     }
 
 
+
+    public double getR() {
+        return r;
+    }
+
+    public double getG() {
+        return g;
+    }
+
+    public double getB() {
+        return b;
+    }
+
     @Override
     public String toString() {
         return "Color{" +
@@ -64,29 +68,5 @@ public class Color {
                 ", g=" + g +
                 ", b=" + b +
                 '}';
-    }
-
-    public double getR() {
-        return r;
-    }
-
-    public void setR(double r) {
-        this.r = r;
-    }
-
-    public double getG() {
-        return g;
-    }
-
-    public void setG(double g) {
-        this.g = g;
-    }
-
-    public double getB() {
-        return b;
-    }
-
-    public void setB(double b) {
-        this.b = b;
     }
 }

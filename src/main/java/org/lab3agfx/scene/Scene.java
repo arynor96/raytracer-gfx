@@ -2,7 +2,7 @@ package org.lab3agfx.scene;
 
 import org.jdom2.Document;
 import org.lab3agfx.datatypes.Color;
-import org.lab3agfx.datatypes.HittedSpot;
+import org.lab3agfx.datatypes.HitSpot;
 import org.lab3agfx.datatypes.Ray;
 import org.lab3agfx.scene.objects.Sphere;
 import org.lab3agfx.scene.objects.Surface;
@@ -15,8 +15,6 @@ public class Scene {
 
     private Camera camera = new Camera();
     private List<Surface> surfaces = new ArrayList<>();
-
-
 
     private List<Light> lights = new ArrayList<>();
     private Color background = new Color(0.0,0.0,0.0);
@@ -41,6 +39,7 @@ public class Scene {
 
     }
 
+    // useful just for debugging.
     public void ScenePrinter(){
 
         System.out.println("CAMERA--------");
@@ -53,8 +52,6 @@ public class Scene {
         this.surfaces.forEach((surface) -> System.out.println(surface));
         System.out.println("SURFACES--------");
 
-
-
     }
 
     public Scene(Camera camera, List<Light> lights, List<Surface> surfaces, Color background, String filename){
@@ -66,7 +63,7 @@ public class Scene {
     }
 
     // source: RayTracingInOneWeekend
-    public boolean checkForHit(Ray ray, double tMin, double tMax, HittedSpot hit){
+    public boolean checkForHit(Ray ray, double tMin, double tMax, HitSpot hit){
 
         boolean hitted = false;
         double t = tMax;
@@ -110,11 +107,5 @@ public class Scene {
     public String getFilename() {
         return filename;
     }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-
 
 }

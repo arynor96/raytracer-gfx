@@ -84,17 +84,10 @@ public class Camera {
         return bottom_left;
     }
 
-    public Vec3 getLookat() {
-        return lookat;
-    }
-
-
     public int getBounces() {
         return bounces;
     }
 
-
-    // useful for debugging the parser
     @Override
     public String toString() {
         return "Camera{" +

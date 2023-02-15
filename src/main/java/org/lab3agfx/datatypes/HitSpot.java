@@ -5,12 +5,12 @@ package org.lab3agfx.datatypes;
 // since Java doesn't have structs, I had to adapt
 
 // useful to save where the ray hits the surface
-// and also the color + other info of the hitted point
+// and also the color + other info of the hit point
 
 import org.lab3agfx.scene.objects.shading.MaterialSolid;
 import org.lab3agfx.scene.objects.shading.MaterialTextured;
 
-public class HittedSpot {
+public class HitSpot {
     private Vec3 point = new Vec3();
     private Vec3 normal = new Vec3();
     private double t = 0.0;
@@ -20,26 +20,21 @@ public class HittedSpot {
     private MaterialSolid SolidMaterial = null;
     private MaterialTextured materialTextured = null;
 
-
     private Color color = new Color(0.0,0.0,0.0);
 
-    //this method : Ray Tracing In One Weekend
-    public HittedSpot(Vec3 point, Vec3 normal, double t) {
+    public HitSpot(Vec3 point, Vec3 normal, double t) {
         this.point = point;
         this.normal = normal;
         this.t = t;
     }
 
-    public HittedSpot() {
+    public HitSpot() {
 
     }
 
     public void setFaceNormal(Ray ray, Vec3 hitNormal){
         if(Vec3.dot(ray.getDirection(),hitNormal) < 0) frontFace = true;
-
-        // no longer flipping the normal, need it like this for the refraction to work
-        /*if(frontFace)*/ this.normal = hitNormal;
-        //else this.normal = hitNormal.scale(-1.0);
+        this.normal = hitNormal;
     }
 
     public Vec3 getPoint() {
@@ -52,10 +47,6 @@ public class HittedSpot {
 
     public Vec3 getNormal() {
         return normal;
-    }
-
-    public void setNormal(Vec3 normal) {
-        this.normal = normal;
     }
 
     public double getT() {

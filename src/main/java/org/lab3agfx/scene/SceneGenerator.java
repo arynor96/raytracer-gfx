@@ -26,7 +26,6 @@ import java.util.List;
 public class SceneGenerator {
 
     private Document doc;
-
     private Camera camera = new Camera();
     private List<Surface> surfaces = new ArrayList<>();
 
@@ -43,9 +42,8 @@ public class SceneGenerator {
         this.doc = doc;
     }
 
-    // For the parser
-    // all the magic from parserXML happens here
-    // tried to do it without using jdom2, i gave up and found this:
+    // Parser for the XML file.
+    // Tried to do it without using jdom2, I gave up and found this:
     // inspired from here: https://howtodoinjava.com/java/xml/jdom2-read-parse-xml-examples/#project-folders
 
     public Scene generate(){
@@ -211,7 +209,7 @@ public class SceneGenerator {
                         }
 
 
-                        // looks like : f 5/5/2 8/6/2 7/7/2
+                        // in XML looks like : f 5/5/2 8/6/2 7/7/2
                         if (line.startsWith("f ")){
 
                             for (int i = 1; i<content.length; i++){

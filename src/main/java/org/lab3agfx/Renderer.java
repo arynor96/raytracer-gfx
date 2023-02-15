@@ -1,7 +1,7 @@
 package org.lab3agfx;
 
 import org.lab3agfx.datatypes.Color;
-import org.lab3agfx.datatypes.HittedSpot;
+import org.lab3agfx.datatypes.HitSpot;
 import org.lab3agfx.datatypes.Ray;
 import org.lab3agfx.datatypes.Vec3;
 import org.lab3agfx.scene.Scene;
@@ -18,9 +18,7 @@ import java.io.IOException;
 public class Renderer {
 
     private double acne = 0.00001;
-
     public Renderer() {
-
     }
 
 
@@ -32,7 +30,6 @@ public class Renderer {
         int height = scene.getCamera().getHeight();
 
         System.out.println("Exporting: " + "T1-BlackImage" + " to /output-tasks folder");
-
         File image = new File("output-tasks", "T1-BlackImage.png");
         BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -103,65 +100,9 @@ public class Renderer {
     }
 
 
-    public void renderDebug(Scene scene){
-
-        int width = scene.getCamera().getWidth();
-        int height = scene.getCamera().getHeight();
-
-        Vec3 origin = scene.getCamera().getPosition();
-        Vec3 horizontalVec = scene.getCamera().getHorizontalVec();
-        Vec3 verticalVec = scene.getCamera().getVerticalVec();
-        Vec3 bottom_left = scene.getCamera().getBottom_left();
-
-
-        File image = new File("output-tasks","debug-test.png");
-        BufferedImage buffer = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-
-
-        System.out.println("DEBUG - Exporting DEBUG image");
-
-        // https://raytracing.github.io/books/RayTracingInOneWeekend.html
-        // rows are written from top to bottom
-        // in rows from left to right
-
-        for(int j = height-1 ; j >= 0; --j){
-            for(int i = 0; i < width; ++i){
-
-
-                double u = (double) i / (width-1);
-                double v = (double) j / (height-1);
-
-                Vec3 horizontalVecN = horizontalVec.scale(u);
-                Vec3 verticalVecN = verticalVec.scale(v);
-
-
-                Vec3 direction2 = ((bottom_left.add(horizontalVec.scale(u))).add(verticalVec.scale(v))).subtract(origin);
-
-                //invert the image here
-                direction2 = direction2.invertVertically();
-                System.out.println(direction2);
-
-                Ray ray = new Ray(origin, direction2);
-                Color newColor = rayColor(ray,scene,scene.getCamera().getBounces());
-                buffer.setRGB(i,j,newColor.getRGB());
-
-            }
-        }
-
-        try {
-            ImageIO.write(buffer, "PNG", image);
-            System.out.println("Exported " + image.getName());
-            System.out.println("Done");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-
     public Color rayColor(Ray r, Scene scene, int bounces){
 
-        HittedSpot hit = new HittedSpot();
+        HitSpot hit = new HitSpot();
         if(scene.checkForHit(r,acne,Double.POSITIVE_INFINITY,hit)){
             Color colorHit = new Color(hit.getColor().getR(),hit.getColor().getG(),hit.getColor().getB());
             double[] phong;
@@ -224,7 +165,7 @@ public class Renderer {
                 if(parallelExists || pointExists){
 
                     Ray shadowRay = new Ray(hit.getPoint(), Vec3.negate(L));
-                    boolean pointInShadow = scene.checkForHit(shadowRay,acne,lightDistance, new HittedSpot(hit.getPoint(),hit.getNormal(),hit.getT()));
+                    boolean pointInShadow = scene.checkForHit(shadowRay,acne,lightDistance, new HitSpot(hit.getPoint(),hit.getNormal(),hit.getT()));
                     if(pointInShadow) continue;
 
                     // all vectors are normalised
@@ -259,7 +200,6 @@ public class Renderer {
             }
 
 
-
             // REFLECTION
             // tutorial slides + https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel
             Color reflection = new Color(0.0,0.0,0.0);
@@ -267,7 +207,6 @@ public class Renderer {
             if(hit.getSolidMaterial()!=null) reflectance = hit.getSolidMaterial().getReflectance();
             else reflectance = hit.getMaterialTextured().getReflectance();
             if(reflectance>0 && bounces > 0) reflection = reflection(reflectance,bounces,hit,r,scene).scale(reflectance);
-
 
             // REFRACTION
             // tutorial slides + https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel
@@ -309,7 +248,7 @@ public class Renderer {
 
 
     // tutorial slides + https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel
-    private Color reflection(double reflectance, int bounces, HittedSpot hit, Ray r, Scene scene){
+    private Color reflection(double reflectance, int bounces, HitSpot hit, Ray r, Scene scene){
 
         Color reflection = new Color(0.0,0.0,0.0);
         Vec3 N = (hit.getNormal()).unitVector();
@@ -330,7 +269,7 @@ public class Renderer {
 
 
     // tutorial slides + https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel
-    private Color refraction(double refractionIndices, int bounces, HittedSpot hit, Ray r, Scene scene, double transmittance){
+    private Color refraction(double refractionIndices, int bounces, HitSpot hit, Ray r, Scene scene, double transmittance){
 
         Color refraction = new Color(0.0,0.0,0.0);
         Ray refractionRay = null;

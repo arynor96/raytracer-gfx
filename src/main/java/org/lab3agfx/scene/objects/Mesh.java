@@ -1,6 +1,6 @@
 package org.lab3agfx.scene.objects;
 
-import org.lab3agfx.datatypes.HittedSpot;
+import org.lab3agfx.datatypes.HitSpot;
 import org.lab3agfx.datatypes.Ray;
 import org.lab3agfx.datatypes.Vec3;
 import org.lab3agfx.scene.objects.shading.MaterialSolid;
@@ -60,7 +60,7 @@ public class Mesh extends Surface{
     // Möller-Trumbore
     // source: tutorial slides + https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/moller-trumbore-ray-triangle-intersection
     @Override
-    public boolean hit(Ray ray, double tMin, double tMax, HittedSpot hit) {
+    public boolean hit(Ray ray, double tMin, double tMax, HitSpot hit) {
         Vec3 direction = ray.getDirection();
         Vec3 origin = ray.getOrigin();
         Boolean isHit = false;
@@ -132,7 +132,7 @@ public class Mesh extends Surface{
     }
 
 
-    private void updateHit(HittedSpot hit, Mesh mesh, Ray ray, double tMax, Vec3 normal, double xCoord, double yCoord){
+    private void updateHit(HitSpot hit, Mesh mesh, Ray ray, double tMax, Vec3 normal, double xCoord, double yCoord){
         hit.setT(tMax);
         hit.setPoint(ray.at(hit.getT()));
         hit.setSolidMaterial(mesh.getMaterialSolid());

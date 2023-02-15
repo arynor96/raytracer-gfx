@@ -1,7 +1,7 @@
 package org.lab3agfx.scene.objects;
 
 import org.lab3agfx.datatypes.Color;
-import org.lab3agfx.datatypes.HittedSpot;
+import org.lab3agfx.datatypes.HitSpot;
 import org.lab3agfx.datatypes.Ray;
 import org.lab3agfx.datatypes.Vec3;
 import org.lab3agfx.scene.objects.shading.MaterialSolid;
@@ -71,7 +71,7 @@ public class Sphere extends Surface{
     // (A + tb - C)^2 - R^2 = 0
     // t1,2 = (-b *(A-C) +- sqrt((b*(A-C)^2) - b^2 * ((A-C)^2-R^2)) / A^2
 
-    public boolean hit(Ray ray, double tMin, double tMax, HittedSpot hit) {
+    public boolean hit(Ray ray, double tMin, double tMax, HitSpot hit) {
 
         Vec3 oc = ray.getOrigin().subtract(this.position);
         // double A = Vec3.dot(ray.getDirection(),ray.getDirection());
